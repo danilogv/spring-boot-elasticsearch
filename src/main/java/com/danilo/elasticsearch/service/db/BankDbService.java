@@ -1,22 +1,24 @@
-package com.danilo.elasticsearch.service;
+package com.danilo.elasticsearch.service.db;
 
-import com.danilo.elasticsearch.domain.Bank;
+import com.danilo.elasticsearch.domain.db.Bank;
 import com.danilo.elasticsearch.dto.BankDTO;
-import com.danilo.elasticsearch.repository.BankRepository;
+import com.danilo.elasticsearch.repository.db.BankDbRepository;
 import jakarta.transaction.Transactional;
 import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
+import org.springframework.http.MediaType;
 import org.springframework.stereotype.Service;
 import org.springframework.web.server.ResponseStatusException;
 
 import java.util.Optional;
 
 @Service
-public class BankService {
+public class BankDbService {
 
     @Autowired
-    private BankRepository repository;
+    private BankDbRepository repository;
 
     @Transactional
     public Bank insert(BankDTO dto) {
@@ -43,6 +45,10 @@ public class BankService {
 
         Bank bank = new Bank();
         BeanUtils.copyProperties(dto,bank);
+
+        HttpHeaders headers = new HttpHeaders();
+        headers.setContentType(MediaType.APPLICATION_JSON);
+
         return this.repository.save(bank);
     }
 

@@ -1,4 +1,4 @@
-package com.danilo.elasticsearch.domain;
+package com.danilo.elasticsearch.domain.db;
 
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
